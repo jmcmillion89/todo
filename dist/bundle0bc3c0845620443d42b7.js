@@ -52,11 +52,22 @@ textarea {
 
 .cards {
   grid-area: cards;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(30ch, 1fr));
+  gap: 5px;
 }
 
 .sidebar, .cards, .header {
   padding: 10px;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EAEI,SAAA;EACA,UAAA;AAAJ;;AAGA;EACI,aAAA;EACA,8BAAA;EACA,4BAAA;EACA,oDACA;EAEA,aAAA;AAFJ;;AAKA;EACI,iBAAA;AAFJ;;AAKA;EACI,kBAAA;EACA,aAAA;EACA,OAAA;EACA,sBAAA;EACA,QAAA;AAFJ;;AAKA;EACI,YAAA;AAFJ;;AAKA;EACI,gBAAA;AAFJ;;AAKA;EACI,aAAA;AAFJ","sourcesContent":["* {\n    // border: solid 1px black;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    display: grid;\n    grid-template-columns: 1fr 4fr;\n    grid-template-rows: 50px 1fr;\n    grid-template-areas: \n    \"header header\"\n    \"sidebar cards\";\n    height: 100vh;\n}\n\n.header {\n    grid-area: header;\n}\n\n.sidebar {\n    grid-area: sidebar;\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    gap: 3px;\n}\n\ntextarea {\n    resize: none;\n}\n\n.cards {\n    grid-area: cards;\n}\n\n.sidebar, .cards, .header {\n    padding: 10px;\n}"],"sourceRoot":""}]);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px blue;
+  overflow: hidden;
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EAEI,SAAA;EACA,UAAA;AAAJ;;AAGA;EACI,aAAA;EACA,8BAAA;EACA,4BAAA;EACA,oDACA;EAEA,aAAA;AAFJ;;AAKA;EACI,iBAAA;AAFJ;;AAKA;EACI,kBAAA;EACA,aAAA;EACA,OAAA;EACA,sBAAA;EACA,QAAA;AAFJ;;AAKA;EACI,YAAA;AAFJ;;AAKA;EACI,gBAAA;EACA,aAAA;EACA,4DAAA;EACA,wDAAA;EACA,QAAA;AAFJ;;AAKA;EACI,aAAA;AAFJ;;AAKA;EACI,aAAA;EAGA,sBAAA;EACA,sBAAA;EACA,gBAAA;AAJJ","sourcesContent":["* {\n    // border: solid 1px black;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    display: grid;\n    grid-template-columns: 1fr 4fr;\n    grid-template-rows: 50px 1fr;\n    grid-template-areas: \n    \"header header\"\n    \"sidebar cards\";\n    height: 100vh;\n}\n\n.header {\n    grid-area: header;\n}\n\n.sidebar {\n    grid-area: sidebar;\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    gap: 3px;\n}\n\ntextarea {\n    resize: none;\n}\n\n.cards {\n    grid-area: cards;\n    display: grid;\n    grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );\n    grid-template-rows: repeat( auto-fill, minmax(30ch, 1fr) );\n    gap: 5px;\n}\n\n.sidebar, .cards, .header {\n    padding: 10px;\n}\n\n.card {\n    display: flex;\n    // max-height: 200px;\n    // max-width: 200px;\n    flex-direction: column;\n    border: solid 1px blue;\n    overflow: hidden;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -585,48 +596,83 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
 
-var taskTitle = document.querySelector('#title');
-var taskDescription = document.querySelector('#description');
-var taskDate = document.querySelector('#date');
-var taskPriority = document.querySelector('#priority');
 var addTask = document.querySelector('#add');
-var id = 0;
-function createCard(title, description, date, priority) {
-  var cardsDiv = document.querySelector('#cards');
-  var newDiv = document.createElement('div');
-  var newH3 = document.createElement('h3');
-  var newBr1 = document.createElement('br');
-  var newBr2 = document.createElement('br');
-  var newTitle = document.createTextNode("".concat(title));
-  var newDescription = document.createTextNode("".concat(description));
-  var newDate = document.createTextNode("".concat(date));
-  var newPriority = document.createTextNode("".concat(priority));
+
+// pulling data from input on page
+var titleValue = document.querySelector('#title');
+var descriptionValue = document.querySelector('#description');
+var dateValue = document.querySelector('#date');
+var priorityValue = document.querySelector('#priority');
+var newTask = function () {
+  var title;
+  var description;
+  var date;
+  var priority;
+  var id = 0;
+
+  // Gets the values from DOM and saves them to be used later
+  function getValues() {
+    title = titleValue.value;
+    description = descriptionValue.value;
+    priority = priorityValue.value;
+    changeDateFormat(dateValue.value);
+    createCard();
+    removeTask();
+  }
+
+  // Creates the div with the information submitted
+  function createCard() {
+    var cardsDiv = document.querySelector('#cards');
+    var newDiv = document.createElement('div');
+    var newTitle = document.createElement('span');
+    var newDescription = document.createElement('p');
+    var newDate = document.createElement('span');
+    var newPriority = document.createElement('span');
+    var removeButton = document.createElement('button');
+    newTitle.innerText = title;
+    newTitle.setAttribute('class', 'card-title');
+    newDiv.appendChild(newTitle);
+    newDescription.innerText = description;
+    newDescription.setAttribute('class', 'card-description');
+    newDiv.appendChild(newDescription);
+    newDate.innerText = "Date Due: ".concat(date);
+    newDate.setAttribute('class', 'card-date');
+    newDiv.appendChild(newDate);
+    newPriority.innerText = "Priortiy: ".concat(priority);
+    newPriority.setAttribute('class', 'card-priority');
+    newDiv.appendChild(newPriority);
+    removeButton.innerText = 'X';
+    removeButton.setAttribute('class', 'removeButton');
+    newDiv.appendChild(removeButton);
+    newDiv.setAttribute('id', "card".concat(id));
+    cardsDiv.appendChild(newDiv);
+  }
+
+  // Changes the date to MM/DD/YYYY
+  function changeDateFormat(value) {
+    var myArray = value.split("-");
+    var year = myArray[0];
+    var month = myArray[1];
+    var day = myArray[2];
+    date = "".concat(month, "-").concat(day, "-").concat(year);
+  }
+  function removeTask() {
+    var removeButtons = document.querySelectorAll('.removeButton');
+    removeButtons.forEach(function (button) {
+      button.addEventListener('click', function (e) {
+        e.currentTarget.parentNode.remove();
+      });
+    });
+  }
   return {
-    title: title,
-    description: description,
-    date: date,
-    priority: priority,
-    addCard: function addCard() {
-      newH3.appendChild(newTitle);
-      newDiv.appendChild(newH3);
-      newDiv.appendChild(newDescription);
-      newDiv.appendChild(newBr1);
-      newDiv.appendChild(newDate);
-      newDiv.appendChild(newBr2);
-      newDiv.appendChild(newPriority);
-      newDiv.setAttribute("id", "card".concat(id));
-      cardsDiv.appendChild(newDiv);
-      id++;
-    }
+    getValues: getValues
   };
-}
-var card = [];
+}();
 addTask.addEventListener('click', function () {
-  card.push(createCard(taskTitle.value, taskDescription.value, taskDate.value, taskPriority.value));
-  card[id].addCard();
+  newTask.getValues();
 });
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle4a9dd2ce46f4ae53be64.js.map
+//# sourceMappingURL=bundle0bc3c0845620443d42b7.js.map

@@ -11,9 +11,9 @@
     <!-- Sidebar Section -->
     <div class="sidebar">
         <label for="title">Task Title:</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" maxlength="30">
         <label for="description">Task Description:</label>
-        <textarea name="description" id="description" cols="22" rows="10"></textarea>
+        <textarea name="description" id="description" cols="22" rows="10" maxlength="350"></textarea>
         <label for="date">Date Due:</label>
         <input type="date" name="date" id="date">
         <label for="priority">Priority:</label>
@@ -27,6 +27,6 @@
 
     </div>
     <!-- Cards Section to display tasks -->
-    <div id="cards" class="cards">cards</div>
+    <div id="cards" class="cards"></div>
 </body>
 </html>

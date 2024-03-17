@@ -1,45 +1,92 @@
 import './styles/main.scss'
-const taskTitle = document.querySelector('#title')
-const taskDescription = document.querySelector('#description')
-const taskDate = document.querySelector('#date')
-const taskPriority = document.querySelector('#priority')
-const addTask = document.querySelector('#add')
 
-let id=0
+const addTask = document.querySelector('#add');
 
-function createCard(title, description, date, priority) {
-    const cardsDiv = document.querySelector('#cards')
-    const newDiv = document.createElement('div');
-    const newH3 = document.createElement('h3');
-    const newBr1 = document.createElement('br')
-    const newBr2 = document.createElement('br')
-    const newTitle = document.createTextNode(`${title}`)
-    const newDescription = document.createTextNode(`${description}`)
-    const newDate = document.createTextNode(`${date}`)
-    const newPriority = document.createTextNode(`${priority}`)
-        return {
-        title: title,
-        description: description,
-        date: date,
-        priority: priority,
-            addCard: function() {
-                newH3.appendChild(newTitle)
-                newDiv.appendChild(newH3)
-                newDiv.appendChild(newDescription)
-                newDiv.appendChild(newBr1)
-                newDiv.appendChild(newDate)
-                newDiv.appendChild(newBr2)
-                newDiv.appendChild(newPriority)
-                newDiv.setAttribute("id", `card${id}`)
-                cardsDiv.appendChild(newDiv)
-                id++
-            }
-        }
-}
 
-let card = [];
+// pulling data from input on page
+const titleValue = document.querySelector('#title');
+const descriptionValue = document.querySelector('#description');
+const dateValue = document.querySelector('#date');
+const priorityValue = document.querySelector('#priority');
 
-addTask.addEventListener('click', ()=> {
-    card.push(createCard(taskTitle.value, taskDescription.value, taskDate.value, taskPriority.value));
-    card[id].addCard()
+
+const newTask = (function() {
+    let title;
+    let description;
+    let date;
+    let priority;
+    let id = 0;
+
+
+    // Gets the values from DOM and saves them to be used later
+    function getValues() {
+
+        title = titleValue.value;
+        description = descriptionValue.value;
+        priority = priorityValue.value;
+        changeDateFormat(dateValue.value)
+        createCard()
+        removeTask()
+
+    }
+
+
+    // Creates the div with the information submitted
+    function createCard() {
+        const cardsDiv = document.querySelector('#cards');
+        const newDiv = document.createElement('div');
+        const newTitle = document.createElement('span');
+        const newDescription = document.createElement('p')
+        const newDate = document.createElement('span')
+        const newPriority = document.createElement('span')
+        const removeButton = document.createElement('button')
+        newTitle.innerText = title
+        newTitle.setAttribute('class', 'card-title')
+        newDiv.appendChild(newTitle);
+        newDescription.innerText = description
+        newDescription.setAttribute('class', 'card-description')
+        newDiv.appendChild(newDescription);
+        newDate.innerText = `Date Due: ${date}`
+        newDate.setAttribute('class', 'card-date')
+        newDiv.appendChild(newDate);
+        newPriority.innerText = `Priortiy: ${priority}`
+        newPriority.setAttribute('class', 'card-priority')
+        newDiv.appendChild(newPriority);
+        removeButton.innerText = 'X'
+        removeButton.setAttribute('class', 'removeButton')
+        newDiv.appendChild(removeButton)
+        newDiv.setAttribute('id', `card${id}`)
+        cardsDiv.appendChild(newDiv);
+
+
+    }
+
+    // Changes the date to MM/DD/YYYY
+    function changeDateFormat(value) {
+        const myArray = value.split("-");
+
+        let year = myArray[0];
+        let month = myArray[1];
+        let day = myArray[2];
+
+        date = `${month}-${day}-${year}`
+    }
+
+    function removeTask() {
+        const removeButtons = document.querySelectorAll('.removeButton')
+        removeButtons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.currentTarget.parentNode.remove();
+            })
+        })
+    }
+
+    return {
+        getValues
+    }
+
+})();
+
+addTask.addEventListener('click', () => {
+    newTask.getValues();
 })

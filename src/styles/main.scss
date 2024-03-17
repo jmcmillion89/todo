@@ -32,8 +32,21 @@ textarea {
 
 .cards {
     grid-area: cards;
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );
+    grid-template-rows: repeat( auto-fill, minmax(30ch, 1fr) );
+    gap: 5px;
 }
 
 .sidebar, .cards, .header {
     padding: 10px;
+}
+
+.card {
+    display: flex;
+    // max-height: 200px;
+    // max-width: 200px;
+    flex-direction: column;
+    border: solid 1px blue;
+    overflow: hidden;
 }

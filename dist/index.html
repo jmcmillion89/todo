@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do-List</title>
-<script defer src="bundle4a9dd2ce46f4ae53be64.js"></script></head>
+<script defer src="bundle0bc3c0845620443d42b7.js"></script></head>
 <body>
     <!-- Header section -->
     <div class="header">header</div>
     <!-- Sidebar Section -->
     <div class="sidebar">
         <label for="title">Task Title:</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" maxlength="30">
         <label for="description">Task Description:</label>
-        <textarea name="description" id="description" cols="22" rows="10"></textarea>
+        <textarea name="description" id="description" cols="22" rows="10" maxlength="350"></textarea>
         <label for="date">Date Due:</label>
         <input type="date" name="date" id="date">
         <label for="priority">Priority:</label>
@@ -27,6 +27,6 @@
 
     </div>
     <!-- Cards Section to display tasks -->
-    <div id="cards" class="cards">cards</div>
+    <div id="cards" class="cards"></div>
 </body>
 </html>
