@@ -22,7 +22,6 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `* {
-  border: solid 1px black;
   margin: 0;
   padding: 0;
 }
@@ -41,6 +40,14 @@ body {
 
 .sidebar {
   grid-area: sidebar;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+textarea {
+  resize: none;
 }
 
 .cards {
@@ -49,7 +56,7 @@ body {
 
 .sidebar, .cards, .header {
   padding: 10px;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACI,uBAAA;EACA,SAAA;EACA,UAAA;AACJ;;AAEA;EACI,aAAA;EACA,8BAAA;EACA,4BAAA;EACA,oDACA;EAEA,aAAA;AADJ;;AAIA;EACI,iBAAA;AADJ;;AAIA;EACI,kBAAA;AADJ;;AAIA;EACI,gBAAA;AADJ;;AAIA;EACI,aAAA;AADJ","sourcesContent":["* {\n    border: solid 1px black;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    display: grid;\n    grid-template-columns: 1fr 4fr;\n    grid-template-rows: 50px 1fr;\n    grid-template-areas: \n    \"header header\"\n    \"sidebar cards\";\n    height: 100vh;\n}\n\n.header {\n    grid-area: header;\n}\n\n.sidebar {\n    grid-area: sidebar;\n}\n\n.cards {\n    grid-area: cards;\n}\n\n.sidebar, .cards, .header {\n    padding: 10px;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EAEI,SAAA;EACA,UAAA;AAAJ;;AAGA;EACI,aAAA;EACA,8BAAA;EACA,4BAAA;EACA,oDACA;EAEA,aAAA;AAFJ;;AAKA;EACI,iBAAA;AAFJ;;AAKA;EACI,kBAAA;EACA,aAAA;EACA,OAAA;EACA,sBAAA;EACA,QAAA;AAFJ;;AAKA;EACI,YAAA;AAFJ;;AAKA;EACI,gBAAA;AAFJ;;AAKA;EACI,aAAA;AAFJ","sourcesContent":["* {\n    // border: solid 1px black;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    display: grid;\n    grid-template-columns: 1fr 4fr;\n    grid-template-rows: 50px 1fr;\n    grid-template-areas: \n    \"header header\"\n    \"sidebar cards\";\n    height: 100vh;\n}\n\n.header {\n    grid-area: header;\n}\n\n.sidebar {\n    grid-area: sidebar;\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    gap: 3px;\n}\n\ntextarea {\n    resize: none;\n}\n\n.cards {\n    grid-area: cards;\n}\n\n.sidebar, .cards, .header {\n    padding: 10px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -578,8 +585,48 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
 
+var taskTitle = document.querySelector('#title');
+var taskDescription = document.querySelector('#description');
+var taskDate = document.querySelector('#date');
+var taskPriority = document.querySelector('#priority');
+var addTask = document.querySelector('#add');
+var id = 0;
+function createCard(title, description, date, priority) {
+  var cardsDiv = document.querySelector('#cards');
+  var newDiv = document.createElement('div');
+  var newH3 = document.createElement('h3');
+  var newBr1 = document.createElement('br');
+  var newBr2 = document.createElement('br');
+  var newTitle = document.createTextNode("".concat(title));
+  var newDescription = document.createTextNode("".concat(description));
+  var newDate = document.createTextNode("".concat(date));
+  var newPriority = document.createTextNode("".concat(priority));
+  return {
+    title: title,
+    description: description,
+    date: date,
+    priority: priority,
+    addCard: function addCard() {
+      newH3.appendChild(newTitle);
+      newDiv.appendChild(newH3);
+      newDiv.appendChild(newDescription);
+      newDiv.appendChild(newBr1);
+      newDiv.appendChild(newDate);
+      newDiv.appendChild(newBr2);
+      newDiv.appendChild(newPriority);
+      newDiv.setAttribute("id", "card".concat(id));
+      cardsDiv.appendChild(newDiv);
+      id++;
+    }
+  };
+}
+var card = [];
+addTask.addEventListener('click', function () {
+  card.push(createCard(taskTitle.value, taskDescription.value, taskDate.value, taskPriority.value));
+  card[id].addCard();
+});
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle756e04eb1a2edfa04273.js.map
+//# sourceMappingURL=bundle4a9dd2ce46f4ae53be64.js.map

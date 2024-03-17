@@ -1,5 +1,5 @@
 * {
-    border: solid 1px black;
+    // border: solid 1px black;
     margin: 0;
     padding: 0;
 }
@@ -20,6 +20,14 @@ body {
 
 .sidebar {
     grid-area: sidebar;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+}
+
+textarea {
+    resize: none;
 }
 
 .cards {
