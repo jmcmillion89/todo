@@ -1,0 +1,31 @@
+* {
+    border: solid 1px black;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas: 
+    "header header"
+    "sidebar cards";
+    height: 100vh;
+}
+
+.header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.cards {
+    grid-area: cards;
+}
+
+.sidebar, .cards, .header {
+    padding: 10px;
+}
