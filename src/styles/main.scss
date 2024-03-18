@@ -12,6 +12,11 @@ body {
     "header header"
     "sidebar cards";
     height: 100vh;
+    background-color: #FFDDA3;
+}
+
+input, textarea, select, #add {
+    background-color: #FFEED1;
 }
 
 .header {
@@ -36,6 +41,29 @@ textarea {
     grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );
     grid-template-rows: repeat( auto-fill, minmax(30ch, 1fr) );
     gap: 5px;
+}
+
+.cards > * {
+    display: flex;
+    position: relative;
+    flex: 1;
+    flex-direction: column;
+    box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.76);
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #8F5A00;
+}
+
+.removeButton {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    border: none;
+    background-color: transparent;
+    color: red;
+    font-size: 1.5rem;
+    -webkit-text-stroke: .5px black;
 }
 
 .sidebar, .cards, .header {

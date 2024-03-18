@@ -16,18 +16,26 @@ const newTask = (function() {
     let date;
     let priority;
     let id = 0;
+    let formComplete = false;
 
 
     // Gets the values from DOM and saves them to be used later
     function getValues() {
-
+        validateForm()
+        if (formComplete  === false) {
+            return;
+        }
+        else {
         title = titleValue.value;
         description = descriptionValue.value;
         priority = priorityValue.value;
         changeDateFormat(dateValue.value)
         createCard()
         removeTask()
-
+        priorityBg()
+        clearForm()
+        formComplete = false;
+    }
     }
 
 
@@ -35,7 +43,7 @@ const newTask = (function() {
     function createCard() {
         const cardsDiv = document.querySelector('#cards');
         const newDiv = document.createElement('div');
-        const newTitle = document.createElement('span');
+        const newTitle = document.createElement('h2');
         const newDescription = document.createElement('p')
         const newDate = document.createElement('span')
         const newPriority = document.createElement('span')
@@ -49,7 +57,7 @@ const newTask = (function() {
         newDate.innerText = `Date Due: ${date}`
         newDate.setAttribute('class', 'card-date')
         newDiv.appendChild(newDate);
-        newPriority.innerText = `Priortiy: ${priority}`
+        newPriority.innerText = `Priority: ${priority}`
         newPriority.setAttribute('class', 'card-priority')
         newDiv.appendChild(newPriority);
         removeButton.innerText = 'X'
@@ -72,6 +80,7 @@ const newTask = (function() {
         date = `${month}-${day}-${year}`
     }
 
+    // Removes the div when button is clicked
     function removeTask() {
         const removeButtons = document.querySelectorAll('.removeButton')
         removeButtons.forEach((button) => {
@@ -79,6 +88,49 @@ const newTask = (function() {
                 e.currentTarget.parentNode.remove();
             })
         })
+    }
+
+    // Changes the background of div based on priority
+    function priorityBg() {
+        const cards = document.querySelectorAll('.card-priority')
+        cards.forEach((card) => {
+            if (card.innerText === "Priority: Low") {
+                card.parentNode.style.backgroundColor = "#95FF94";
+            }
+            if (card.innerText === "Priority: Medium") {
+                card.parentNode.style.backgroundColor = "#FFC8B3";
+            }
+            if (card.innerText === "Priority: High") {
+                card.parentNode.style.backgroundColor = "#FF7575";
+            }
+        })
+    }
+
+    // Checks if form is empty
+    function validateForm() {
+        if (titleValue.value === '') {
+            titleValue.style.borderColor = 'red'
+        }
+        if (descriptionValue.value === '') {
+            descriptionValue.style.borderColor ='red'
+        }
+        if (dateValue.value === '') {
+            dateValue.style.borderColor = 'red'
+        }
+        else {
+            titleValue.style.borderColor = ''
+            descriptionValue.style.borderColor =''
+            dateValue.style.borderColor = ''
+            formComplete = true;
+        }
+    }
+
+    // Clears form after submitting
+    function clearForm() {
+        titleValue.value = ''
+        descriptionValue.value = ''
+        dateValue.value = ''
+        priorityValue.value = 'Low'
     }
 
     return {
