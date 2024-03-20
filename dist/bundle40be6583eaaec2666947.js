@@ -74,6 +74,10 @@ textarea {
   border: 1px solid #8F5A00;
 }
 
+.cards h2, p, span {
+  padding-bottom: 3px;
+}
+
 .removeButton {
   display: flex;
   position: absolute;
@@ -95,7 +99,7 @@ textarea {
   flex-direction: column;
   border: solid 1px blue;
   overflow: hidden;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EAEI,SAAA;EACA,UAAA;AAAJ;;AAGA;EACI,aAAA;EACA,8BAAA;EACA,4BAAA;EACA,oDACA;EAEA,aAAA;EACA,yBAAA;AAFJ;;AAKA;EACI,yBAAA;AAFJ;;AAKA;EACI,iBAAA;AAFJ;;AAKA;EACI,kBAAA;EACA,aAAA;EACA,OAAA;EACA,sBAAA;EACA,QAAA;AAFJ;;AAKA;EACI,YAAA;AAFJ;;AAKA;EACI,gBAAA;EACA,aAAA;EACA,4DAAA;EACA,wDAAA;EACA,QAAA;AAFJ;;AAKA;EACI,aAAA;EACA,kBAAA;EACA,OAAA;EACA,sBAAA;EACA,8CAAA;EACA,mBAAA;EACA,aAAA;EACA,yBAAA;AAFJ;;AAKA;EACI,aAAA;EACA,kBAAA;EACA,SAAA;EACA,UAAA;EACA,YAAA;EACA,6BAAA;EACA,UAAA;EACA,iBAAA;EACA,gCAAA;AAFJ;;AAKA;EACI,aAAA;AAFJ;;AAKA;EACI,aAAA;EAGA,sBAAA;EACA,sBAAA;EACA,gBAAA;AAJJ","sourcesContent":["* {\n    // border: solid 1px black;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    display: grid;\n    grid-template-columns: 1fr 4fr;\n    grid-template-rows: 50px 1fr;\n    grid-template-areas: \n    \"header header\"\n    \"sidebar cards\";\n    height: 100vh;\n    background-color: #FFDDA3;\n}\n\ninput, textarea, select, #add {\n    background-color: #FFEED1;\n}\n\n.header {\n    grid-area: header;\n}\n\n.sidebar {\n    grid-area: sidebar;\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    gap: 3px;\n}\n\ntextarea {\n    resize: none;\n}\n\n.cards {\n    grid-area: cards;\n    display: grid;\n    grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );\n    grid-template-rows: repeat( auto-fill, minmax(30ch, 1fr) );\n    gap: 5px;\n}\n\n.cards > * {\n    display: flex;\n    position: relative;\n    flex: 1;\n    flex-direction: column;\n    box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.76);\n    border-radius: 10px;\n    padding: 10px;\n    border: 1px solid #8F5A00;\n}\n\n.removeButton {\n    display: flex;\n    position: absolute;\n    bottom: 0;\n    right: 5px;\n    border: none;\n    background-color: transparent;\n    color: red;\n    font-size: 1.5rem;\n    -webkit-text-stroke: .5px black;\n}\n\n.sidebar, .cards, .header {\n    padding: 10px;\n}\n\n.card {\n    display: flex;\n    // max-height: 200px;\n    // max-width: 200px;\n    flex-direction: column;\n    border: solid 1px blue;\n    overflow: hidden;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EAEI,SAAA;EACA,UAAA;AAAJ;;AAGA;EACI,aAAA;EACA,8BAAA;EACA,4BAAA;EACA,oDACA;EAEA,aAAA;EACA,yBAAA;AAFJ;;AAKA;EACI,yBAAA;AAFJ;;AAKA;EACI,iBAAA;AAFJ;;AAKA;EACI,kBAAA;EACA,aAAA;EACA,OAAA;EACA,sBAAA;EACA,QAAA;AAFJ;;AAKA;EACI,YAAA;AAFJ;;AAKA;EACI,gBAAA;EACA,aAAA;EACA,4DAAA;EACA,wDAAA;EACA,QAAA;AAFJ;;AAKA;EACI,aAAA;EACA,kBAAA;EACA,OAAA;EACA,sBAAA;EACA,8CAAA;EACA,mBAAA;EACA,aAAA;EACA,yBAAA;AAFJ;;AAKA;EACI,mBAAA;AAFJ;;AAKA;EACI,aAAA;EACA,kBAAA;EACA,SAAA;EACA,UAAA;EACA,YAAA;EACA,6BAAA;EACA,UAAA;EACA,iBAAA;EACA,gCAAA;AAFJ;;AAKA;EACI,aAAA;AAFJ;;AAKA;EACI,aAAA;EAGA,sBAAA;EACA,sBAAA;EACA,gBAAA;AAJJ","sourcesContent":["* {\n    // border: solid 1px black;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    display: grid;\n    grid-template-columns: 1fr 4fr;\n    grid-template-rows: 50px 1fr;\n    grid-template-areas: \n    \"header header\"\n    \"sidebar cards\";\n    height: 100vh;\n    background-color: #FFDDA3;\n}\n\ninput, textarea, select, #add {\n    background-color: #FFEED1;\n}\n\n.header {\n    grid-area: header;\n}\n\n.sidebar {\n    grid-area: sidebar;\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    gap: 3px;\n}\n\ntextarea {\n    resize: none;\n}\n\n.cards {\n    grid-area: cards;\n    display: grid;\n    grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );\n    grid-template-rows: repeat( auto-fill, minmax(30ch, 1fr) );\n    gap: 5px;\n}\n\n.cards > * {\n    display: flex;\n    position: relative;\n    flex: 1;\n    flex-direction: column;\n    box-shadow: 5px 5px 5px rgba(10, 10, 10, 0.76);\n    border-radius: 10px;\n    padding: 10px;\n    border: 1px solid #8F5A00;\n}\n\n.cards h2, p, span {\n    padding-bottom: 3px;\n}\n\n.removeButton {\n    display: flex;\n    position: absolute;\n    bottom: 0;\n    right: 5px;\n    border: none;\n    background-color: transparent;\n    color: red;\n    font-size: 1.5rem;\n    -webkit-text-stroke: .5px black;\n}\n\n.sidebar, .cards, .header {\n    padding: 10px;\n}\n\n.card {\n    display: flex;\n    // max-height: 200px;\n    // max-width: 200px;\n    flex-direction: column;\n    border: solid 1px blue;\n    overflow: hidden;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -632,12 +636,14 @@ var descriptionValue = document.querySelector('#description');
 var dateValue = document.querySelector('#date');
 var priorityValue = document.querySelector('#priority');
 var newTask = function () {
+  var LOCAL_STORAGE_LIST_KEY = 'task.list';
+  var list = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
   var title;
   var description;
   var date;
   var priority;
-  var id = 0;
   var formComplete = false;
+  render();
 
   // Gets the values from DOM and saves them to be used later
   function getValues() {
@@ -649,40 +655,63 @@ var newTask = function () {
       description = descriptionValue.value;
       priority = priorityValue.value;
       changeDateFormat(dateValue.value);
-      createCard();
-      removeTask();
-      priorityBg();
-      clearForm();
+      addToList();
       formComplete = false;
     }
   }
+  function addToList() {
+    list.push([title, description, date, priority]);
+    saveList();
+    render();
+  }
+  function saveList() {
+    localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(list));
+    render();
+  }
 
   // Creates the div with the information submitted
-  function createCard() {
+  function render() {
+    clearTasks();
+    var _loop = function _loop(index) {
+      var cardsDiv = document.querySelector('#cards');
+      var newDiv = document.createElement('div');
+      var newTitle = document.createElement('h2');
+      var newDescription = document.createElement('p');
+      var newDate = document.createElement('span');
+      var newPriority = document.createElement('span');
+      var removeButton = document.createElement('button');
+      newTitle.innerText = list[index][0];
+      newTitle.setAttribute('class', 'card-title');
+      newDiv.appendChild(newTitle);
+      newDescription.innerText = list[index][1];
+      newDescription.setAttribute('class', 'card-description');
+      newDiv.appendChild(newDescription);
+      newDate.innerText = "Date Due: ".concat(list[index][2]);
+      newDate.setAttribute('class', 'card-date');
+      newDiv.appendChild(newDate);
+      newPriority.innerText = "Priority: ".concat(list[index][3]);
+      newPriority.setAttribute('class', 'card-priority');
+      newDiv.appendChild(newPriority);
+      removeButton.innerText = 'X';
+      removeButton.setAttribute('class', 'removeButton');
+      removeButton.setAttribute('id', "remove-".concat(index));
+      newDiv.appendChild(removeButton);
+      newDiv.setAttribute('id', "card".concat(index));
+      cardsDiv.appendChild(newDiv);
+      priorityBg();
+      removeButton.addEventListener('click', function () {
+        list = list.toSpliced(index, 1);
+        saveList();
+      });
+    };
+    for (var index = 0; index < list.length; index++) {
+      _loop(index);
+    }
+    clearForm();
+  }
+  function clearTasks() {
     var cardsDiv = document.querySelector('#cards');
-    var newDiv = document.createElement('div');
-    var newTitle = document.createElement('h2');
-    var newDescription = document.createElement('p');
-    var newDate = document.createElement('span');
-    var newPriority = document.createElement('span');
-    var removeButton = document.createElement('button');
-    newTitle.innerText = title;
-    newTitle.setAttribute('class', 'card-title');
-    newDiv.appendChild(newTitle);
-    newDescription.innerText = description;
-    newDescription.setAttribute('class', 'card-description');
-    newDiv.appendChild(newDescription);
-    newDate.innerText = "Date Due: ".concat(date);
-    newDate.setAttribute('class', 'card-date');
-    newDiv.appendChild(newDate);
-    newPriority.innerText = "Priority: ".concat(priority);
-    newPriority.setAttribute('class', 'card-priority');
-    newDiv.appendChild(newPriority);
-    removeButton.innerText = 'X';
-    removeButton.setAttribute('class', 'removeButton');
-    newDiv.appendChild(removeButton);
-    newDiv.setAttribute('id', "card".concat(id));
-    cardsDiv.appendChild(newDiv);
+    cardsDiv.innerHTML = '';
   }
 
   // Changes the date to MM/DD/YYYY
@@ -692,16 +721,6 @@ var newTask = function () {
     var month = myArray[1];
     var day = myArray[2];
     date = "".concat(month, "-").concat(day, "-").concat(year);
-  }
-
-  // Removes the div when button is clicked
-  function removeTask() {
-    var removeButtons = document.querySelectorAll('.removeButton');
-    removeButtons.forEach(function (button) {
-      button.addEventListener('click', function (e) {
-        e.currentTarget.parentNode.remove();
-      });
-    });
   }
 
   // Changes the background of div based on priority
@@ -756,4 +775,4 @@ addTask.addEventListener('click', function () {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundleffe636611f714a3fb72c.js.map
+//# sourceMappingURL=bundle40be6583eaaec2666947.js.map

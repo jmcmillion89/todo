@@ -3,6 +3,8 @@ import './styles/main.scss'
 const addTask = document.querySelector('#add');
 
 
+
+
 // pulling data from input on page
 const titleValue = document.querySelector('#title');
 const descriptionValue = document.querySelector('#description');
@@ -11,13 +13,15 @@ const priorityValue = document.querySelector('#priority');
 
 
 const newTask = (function() {
+    const LOCAL_STORAGE_LIST_KEY = 'task.list'
+    let list = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || []
     let title;
     let description;
     let date;
     let priority;
-    let id = 0;
     let formComplete = false;
-
+    
+    render()
 
     // Gets the values from DOM and saves them to be used later
     function getValues() {
@@ -30,17 +34,26 @@ const newTask = (function() {
         description = descriptionValue.value;
         priority = priorityValue.value;
         changeDateFormat(dateValue.value)
-        createCard()
-        removeTask()
-        priorityBg()
-        clearForm()
+        addToList()
         formComplete = false;
     }
     }
 
+    function addToList() {
+        list.push([title, description, date, priority]);
+        saveList()
+        render()
+    }
+
+    function saveList () {
+        localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(list));
+        render()
+    }
 
     // Creates the div with the information submitted
-    function createCard() {
+    function render() {
+        clearTasks()
+        for (let index = 0; index < list.length; index++) {
         const cardsDiv = document.querySelector('#cards');
         const newDiv = document.createElement('div');
         const newTitle = document.createElement('h2');
@@ -48,25 +61,36 @@ const newTask = (function() {
         const newDate = document.createElement('span')
         const newPriority = document.createElement('span')
         const removeButton = document.createElement('button')
-        newTitle.innerText = title
+        newTitle.innerText = list[index][0]
         newTitle.setAttribute('class', 'card-title')
         newDiv.appendChild(newTitle);
-        newDescription.innerText = description
+        newDescription.innerText = list[index][1]
         newDescription.setAttribute('class', 'card-description')
         newDiv.appendChild(newDescription);
-        newDate.innerText = `Date Due: ${date}`
+        newDate.innerText = `Date Due: ${list[index][2]}`
         newDate.setAttribute('class', 'card-date')
         newDiv.appendChild(newDate);
-        newPriority.innerText = `Priority: ${priority}`
+        newPriority.innerText = `Priority: ${list[index][3]}`
         newPriority.setAttribute('class', 'card-priority')
         newDiv.appendChild(newPriority);
         removeButton.innerText = 'X'
         removeButton.setAttribute('class', 'removeButton')
+        removeButton.setAttribute('id', `remove-${index}`)
         newDiv.appendChild(removeButton)
-        newDiv.setAttribute('id', `card${id}`)
+        newDiv.setAttribute('id', `card${index}`)
         cardsDiv.appendChild(newDiv);
+        priorityBg()
+        removeButton.addEventListener('click', () => {
+            list = list.toSpliced(index, 1)
+            saveList()
+        })
+    }
+    clearForm()
+    }
 
-
+    function clearTasks() {
+        const cardsDiv = document.querySelector('#cards');
+        cardsDiv.innerHTML = ''
     }
 
     // Changes the date to MM/DD/YYYY
@@ -78,16 +102,6 @@ const newTask = (function() {
         let day = myArray[2];
 
         date = `${month}-${day}-${year}`
-    }
-
-    // Removes the div when button is clicked
-    function removeTask() {
-        const removeButtons = document.querySelectorAll('.removeButton')
-        removeButtons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                e.currentTarget.parentNode.remove();
-            })
-        })
     }
 
     // Changes the background of div based on priority
